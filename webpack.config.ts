@@ -36,7 +36,9 @@ module.exports = (env: any, options: any) => {
             // publicPath: IS_PROD ? '/' + packageJson.name : '/'
         },
         resolve: {
-            alias: {}
+            alias: {
+                '~': Path.resolve(__dirname, './src'),
+            }
         },
         plugins: [
             IS_PROD && new UglifyJsPlugin({

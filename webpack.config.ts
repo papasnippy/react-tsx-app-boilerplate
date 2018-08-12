@@ -1,24 +1,39 @@
 import * as Path from 'path';
 import * as Rimraf from 'rimraf';
-import { Configuration, LoaderOptionsPlugin } from 'webpack';
+import { Configuration, LoaderOptionsPlugin, DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-// const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+// *******************************************************************
+// todo:
+//  - dev server api fallback
+//  - tree shaking
+//  - base url
+//  - redux
+//  - router (+dev tools)
+//  - reselect (+dev tools)
+//  - axios
+//  - testing
+// *******************************************************************
 
 module.exports = (env: any, options: any) => {
     env = env || {};
     const IS_PROD = options.mode === 'production';
+    const MODE = IS_PROD ? 'production' : 'development';
     const CHUNK_TYPE = IS_PROD ? 'chunkhash' : 'hash';
     const BUILD_PATH = Path.resolve(__dirname, 'build');
     const URL_LOADER_LIMIT = env.urlloaderlimit || 65536;
     const IS_BUILD = !options.$0.includes('webpack-dev-server');
+    const BASE_URL = env.baseurl || '';
 
     console.log(`Settings:`);
-    console.log(`- Mode:                ${IS_PROD ? 'production' : 'development'}`);
+    console.log(`- Mode:                ${MODE}`);
     console.log(`- Build path:          ${IS_BUILD ? BUILD_PATH : `none`}`);
-    console.log(`- Url loader limit:    ${URL_LOADER_LIMIT} bytes`)
+    console.log(`- Url loader limit:    ${URL_LOADER_LIMIT} bytes`);
+    console.log(`- Base url:            "${BASE_URL}"`);
     console.log(``);
 
     if (IS_BUILD) {
@@ -26,7 +41,7 @@ module.exports = (env: any, options: any) => {
     }
 
     return {
-        mode: IS_PROD ? 'production' : 'development',
+        mode: MODE,
         devtool: IS_PROD ? 'none' : 'source-map',
         entry: {
             app: './src/index.tsx'
@@ -34,12 +49,26 @@ module.exports = (env: any, options: any) => {
         output: {
             path: BUILD_PATH,
             filename: `content/[name].[${CHUNK_TYPE}].js`,
-            // publicPath: IS_PROD ? '/' + packageJson.name : '/'
+            publicPath: IS_PROD ? '/' + BASE_URL : '/'
         },
         resolve: {
             alias: {
                 '~': Path.resolve(__dirname, './src'),
             }
+        },
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10
+                    }
+                }
+            }
+        },
+        devServer: {
+            hot: true
         },
         plugins: [
             IS_PROD && new UglifyJsPlugin({
@@ -48,6 +77,20 @@ module.exports = (env: any, options: any) => {
             }),
             IS_PROD && new BundleAnalyzerPlugin({
                 analyzerMode: 'static'
+            }),
+            IS_PROD && new CopyWebpackPlugin([
+                {
+                    from: 'public/favicon.ico',
+                    to: BUILD_PATH
+                }
+            ]),
+            !IS_PROD && new HotModuleReplacementPlugin(),
+            new DefinePlugin({
+                'process.env': {
+                    'ENV': JSON.stringify(MODE),
+                    'NODE_ENV': JSON.stringify(MODE),
+                    'BASE_URL': IS_PROD ? JSON.stringify(BASE_URL) : 'null'
+                }
             }),
             new LoaderOptionsPlugin({
                 options: {
@@ -64,17 +107,10 @@ module.exports = (env: any, options: any) => {
                 allChunks: true
             }),
             new HtmlWebpackPlugin({
-                template: Path.resolve(__dirname, './src/index.html'),
+                template: Path.resolve(__dirname, './public/index.html'),
                 inject: 'body',
                 baseUrl: '/'
-            }),
-            /*new CopyWebpackPlugin([{
-                from: './src/404.html',
-                to: '../docs/'
-            }, {
-                from: './src/favicon.ico',
-                to: '../docs/'
-            }])*/
+            })
         ].filter(v => !!v),
         module: {
             rules: [

@@ -19,6 +19,7 @@
     "@types/rimraf": "^2.0.2",
     "@types/webpack": "^4.4.9",
     "@types/webpack-bundle-analyzer": "^2.9.2",
+    "@types/webpack-env": "^1.13.6",
     "caniuse-lite": "^1.0.30000874",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",

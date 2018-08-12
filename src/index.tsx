@@ -2,6 +2,10 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 const Style = require('./index.scss');
 
+if (module.hot) {
+    module.hot.accept();
+}
+
 class App extends React.Component {
     public render() {
         return (

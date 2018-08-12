@@ -15,7 +15,10 @@
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "jsx": "react",
-        "types": ["node"],
+        "types": [
+            "node",
+            "@types/webpack-env"
+        ],
         "allowJs": true,
         "skipLibCheck": true,
         "lib": ["es2015", "dom"],

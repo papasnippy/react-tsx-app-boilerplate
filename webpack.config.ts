@@ -138,8 +138,26 @@ module.exports = (env: any, options: any) => {
                     })
                 },
                 {
+                    enforce: 'pre',
+                    test: /\.tsx?$/,
+                    loader: 'tslint-loader'
+                },
+                {
+                    enforce: 'pre',
+                    test: /\.jsx?$/,
+                    loader: 'source-map-loader'
+                },
+                {
                     test: /\.tsx?$/,
                     use: 'ts-loader'
+                },
+                {
+                    test: /(\.txt$|\.md)/,
+                    use: 'raw-loader'
+                },
+                {
+                    test: /\.json$/,
+                    loader: 'json-loader'
                 },
                 {
                     test: /\.(png|jpg|gif|svg|ttf|eot|woff|woff2)$/,

@@ -9,12 +9,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // *******************************************************************
 // todo:
-//  - tree shaking
-//  - base url
-//  - redux
 //  - router (+dev tools)
 //  - reselect (+dev tools)
-//  - axios
 //  - testing
 // *******************************************************************
 
@@ -28,6 +24,7 @@ module.exports = (env: any, options: any) => {
     const URL_LOADER_LIMIT = env.urlloaderlimit || 65536;
     const IS_BUILD = !options.$0.includes('webpack-dev-server');
     const BASE_URL = env.baseurl || '';
+    const ANALYZE = env.analyze || false;
 
     console.log(`Settings:`);
     console.log(`- Mode:                ${MODE}`);
@@ -50,16 +47,17 @@ module.exports = (env: any, options: any) => {
         mode: MODE,
         devtool: IS_PROD ? 'none' : 'source-map',
         entry: {
-            app: './src/index.tsx'
+            app: ['@babel/polyfill', './src/index.tsx']
         },
         output: {
             path: BUILD_PATH,
             filename: `content/[name].[${CHUNK_TYPE}].js`,
-            publicPath: IS_PROD ? '/' + BASE_URL : '/'
+            publicPath: IS_PROD ? '/' + BASE_URL : ''
         },
         resolve: {
+            extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
             alias: {
-                '~': Path.resolve(__dirname, './src'),
+                '~': Path.resolve(__dirname, './src')
             }
         },
         optimization: {
@@ -83,10 +81,10 @@ module.exports = (env: any, options: any) => {
                 parallel: true,
                 sourceMap: true
             }),
-            IS_PROD && new BundleAnalyzerPlugin({
+            ANALYZE && new BundleAnalyzerPlugin({
                 analyzerMode: 'static'
             }),
-            IS_PROD && new CopyWebpackPlugin([
+            IS_BUILD && new CopyWebpackPlugin([
                 {
                     from: 'public/favicon.ico',
                     to: BUILD_PATH
@@ -195,7 +193,15 @@ module.exports = (env: any, options: any) => {
                 },
                 {
                     test: /\.tsx?$/,
-                    use: 'ts-loader'
+                    sideEffects: false,
+                    use: [
+                        {
+                            loader: 'babel-loader'
+                        },
+                        {
+                            loader: 'ts-loader'
+                        }
+                    ]
                 },
                 {
                     test: /(\.txt$|\.md)/,

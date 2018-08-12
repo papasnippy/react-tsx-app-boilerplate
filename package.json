@@ -5,21 +5,29 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --open",
+    "start": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" ./node_modules/.bin/webpack-dev-server --open",
+    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" ./node_modules/.bin/webpack",
     "w": "yarn start",
-    "build": "./node_modules/.bin/webpack",
     "b": "yarn build",
     "bp": "yarn build --mode production"
   },
   "devDependencies": {
+    "@babel/cli": "^7.0.0-rc.1",
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/plugin-syntax-dynamic-import": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@types/history": "^4.7.0",
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/prop-types": "^15.5.5",
     "@types/react": "^16.4.9",
     "@types/react-dom": "^16.0.7",
+    "@types/react-redux": "^6.0.6",
+    "@types/redux-devtools": "^3.0.44",
     "@types/rimraf": "^2.0.2",
     "@types/webpack": "^4.4.9",
     "@types/webpack-bundle-analyzer": "^2.9.2",
     "@types/webpack-env": "^1.13.6",
+    "babel-loader": "^8.0.0-beta",
     "caniuse-lite": "^1.0.30000874",
     "copy-webpack-plugin": "^4.5.2",
     "css-loader": "^1.0.0",
@@ -32,6 +40,7 @@
     "postcss-mixins": "^6.2.0",
     "postcss-preset-env": "^5.3.0",
     "raw-loader": "^0.5.1",
+    "redux-devtools": "^3.4.1",
     "resolve-url-loader": "^2.3.0",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.1.0",
@@ -39,6 +48,7 @@
     "style-loader": "^0.22.1",
     "ts-loader": "^4.4.2",
     "ts-node": "^7.0.1",
+    "tsconfig-paths": "^3.5.0",
     "tslint": "^5.11.0",
     "tslint-loader": "^3.6.0",
     "typescript": "^3.0.1",
@@ -50,7 +60,15 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0-rc.1",
+    "axios": "^0.18.0",
+    "history": "^4.7.2",
     "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react-dom": "^16.4.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^3.0.1",
+    "reselect-tools": "^0.0.6"
   }
 }

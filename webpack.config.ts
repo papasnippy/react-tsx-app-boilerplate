@@ -4,7 +4,7 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 
 
 
-module.exports = (_env: object, options: any) => {
+module.exports = (_env: any, options: any) => {
     const IS_PROD = options.mode === 'production';
 
     return {
@@ -26,10 +26,39 @@ module.exports = (_env: object, options: any) => {
         module: {
             rules: [
                 {
-                    test: /\.css$/, use: 'css-loader'
+                    test: /(\.css$|\.scss$)/,
+                    use: [
+                        {
+                            loader: 'style-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            query: {
+                                modules: true,
+                                minimize: false,
+                                localIdentName: '[name]__[local]___[hash:base64:5]'
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true
+                            }
+                        },
+                        {
+                            loader: 'resolve-url-loader'
+                        },
+                        {
+                            loader: 'sass-loader',
+                            query: {
+                                sourceMap: true
+                            }
+                        }
+                    ]
                 },
                 {
-                    test: /\.tsx?$/, use: 'ts-loader'
+                    test: /\.tsx?$/,
+                    use: 'ts-loader'
                 }
             ]
         }

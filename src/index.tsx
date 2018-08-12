@@ -1,11 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// const Style = require('./index.scss');
+const Style = require('./index.scss');
 
 class App extends React.Component {
     public render() {
         return (
-            <div /*className={Style.app}*/>
+            <div className={Style.app}>
                 React app bolierplate.
             </div>
         );

@@ -27,6 +27,7 @@ module.exports = (env: any, options: any) => {
 
     return {
         mode: IS_PROD ? 'production' : 'development',
+        devtool: IS_PROD ? 'none' : 'source-map',
         entry: {
             app: './src/index.tsx'
         },
@@ -48,14 +49,6 @@ module.exports = (env: any, options: any) => {
             IS_PROD && new BundleAnalyzerPlugin({
                 analyzerMode: 'static'
             }),
-            // IS_PROD && new optimize.CommonsChunkPlugin({
-            //     name: 'vendor',
-            //     minChunks: module => module.context && module.context.includes('node_modules')
-            // }),
-            // IS_PROD && new optimize.CommonsChunkPlugin({
-            //     name: 'runtime',
-            //     minChunks: Infinity
-            // }),
             new LoaderOptionsPlugin({
                 options: {
                     tslint: {
@@ -74,7 +67,14 @@ module.exports = (env: any, options: any) => {
                 template: Path.resolve(__dirname, './src/index.html'),
                 inject: 'body',
                 baseUrl: '/'
-            })
+            }),
+            /*new CopyWebpackPlugin([{
+                from: './src/404.html',
+                to: '../docs/'
+            }, {
+                from: './src/favicon.ico',
+                to: '../docs/'
+            }])*/
         ].filter(v => !!v),
         module: {
             rules: [

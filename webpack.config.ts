@@ -9,7 +9,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 // *******************************************************************
 // todo:
-//  - dev server api fallback
 //  - tree shaking
 //  - base url
 //  - redux
@@ -23,6 +22,7 @@ module.exports = (env: any, options: any) => {
     env = env || {};
     const IS_PROD = options.mode === 'production';
     const MODE = IS_PROD ? 'production' : 'development';
+    const PORT = env.port || 27000;
     const CHUNK_TYPE = IS_PROD ? 'chunkhash' : 'hash';
     const BUILD_PATH = Path.resolve(__dirname, 'build');
     const URL_LOADER_LIMIT = env.urlloaderlimit || 65536;
@@ -31,7 +31,13 @@ module.exports = (env: any, options: any) => {
 
     console.log(`Settings:`);
     console.log(`- Mode:                ${MODE}`);
-    console.log(`- Build path:          ${IS_BUILD ? BUILD_PATH : `none`}`);
+
+    if (IS_BUILD) {
+        console.log(`- Build path:          ${BUILD_PATH}`);
+    } else {
+        console.log(`- Port:                ${PORT}`);
+    }
+
     console.log(`- Url loader limit:    ${URL_LOADER_LIMIT} bytes`);
     console.log(`- Base url:            "${BASE_URL}"`);
     console.log(``);
@@ -68,7 +74,9 @@ module.exports = (env: any, options: any) => {
             }
         },
         devServer: {
-            hot: true
+            hot: true,
+            port: PORT,
+            historyApiFallback: true
         },
         plugins: [
             IS_PROD && new UglifyJsPlugin({

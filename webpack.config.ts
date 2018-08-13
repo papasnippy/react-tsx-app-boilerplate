@@ -107,8 +107,7 @@ module.exports = (env: any, options: any) => {
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
             alias: {
-                '~': Path.resolve(__dirname, './src'),
-                ':': Path.resolve(__dirname, './scripts')
+                '~': Path.resolve(__dirname, './src')
             }
         },
         optimization: {

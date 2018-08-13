@@ -10,12 +10,12 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 module.exports = (env: any, options: any) => {
     env = env || {};
     const IS_PROD = options.mode === 'production';
+    const IS_BUILD = !options.$0.includes('webpack-dev-server');
     const MODE = IS_PROD ? 'production' : 'development';
     const PORT = env.port || 27000;
-    const CHUNK_TYPE = IS_PROD ? 'chunkhash' : 'hash';
+    const CHUNK_TYPE = IS_BUILD ? 'chunkhash' : 'hash';
     const BUILD_PATH = Path.resolve(__dirname, 'build');
     const URL_LOADER_LIMIT = env.urlloaderlimit || 65536;
-    const IS_BUILD = !options.$0.includes('webpack-dev-server');
     const BASE_URL = env.baseurl || '';
     const ANALYZE = env.analyze || false;
 
@@ -36,16 +36,73 @@ module.exports = (env: any, options: any) => {
         Rimraf.sync(BUILD_PATH);
     }
 
+    function createStyleSheetLoader(modules: boolean) {
+        let rules = [
+            (
+                modules
+                    ? {
+                        loader: 'css-loader',
+                        query: {
+                            modules: true,
+                            minimize: false,
+                            localIdentName: '[name]__[local]___[hash:base64:5]'
+                        }
+                    }
+                    : {
+                        loader: 'css-loader'
+                    }
+            ),
+            {
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true
+                }
+            },
+            {
+                loader: 'resolve-url-loader'
+            },
+            {
+                loader: 'sass-loader',
+                query: {
+                    sourceMap: true
+                }
+            }
+        ];
+
+        return {
+            test: /(\.css$|\.scss$)/,
+            include: [
+                Path.resolve(__dirname, modules ? './src' : './node_modules')
+            ],
+            use: (
+                IS_BUILD
+                    ? ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: rules
+                    })
+                    : [
+                        {
+                            loader: 'style-loader'
+                        },
+                        ...rules
+                    ]
+            )
+        };
+    }
+
     return {
         mode: MODE,
         devtool: IS_PROD ? 'none' : 'source-map',
+        performance: {
+            hints: false
+        },
         entry: {
             app: ['@babel/polyfill', './src/index.tsx']
         },
         output: {
             path: BUILD_PATH,
             filename: `content/[name].[${CHUNK_TYPE}].js`,
-            publicPath: IS_PROD ? '/' + BASE_URL : ''
+            publicPath: IS_BUILD ? '/' + BASE_URL : '/'
         },
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
@@ -84,7 +141,7 @@ module.exports = (env: any, options: any) => {
                     to: BUILD_PATH
                 }
             ]),
-            !IS_PROD && new HotModuleReplacementPlugin(),
+            !IS_BUILD && new HotModuleReplacementPlugin(),
             new DefinePlugin({
                 'process.env': {
                     'ENV': JSON.stringify(MODE),
@@ -114,67 +171,8 @@ module.exports = (env: any, options: any) => {
         ].filter(v => !!v),
         module: {
             rules: [
-                {
-                    test: /(\.css$|\.scss$)/,
-                    include: [
-                        Path.resolve(__dirname, './src')
-                    ],
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [
-                            {
-                                loader: 'css-loader',
-                                query: {
-                                    modules: true,
-                                    minimize: false,
-                                    localIdentName: '[name]__[local]___[hash:base64:5]'
-                                }
-                            },
-                            {
-                                loader: 'postcss-loader',
-                                options: {
-                                    sourceMap: true
-                                }
-                            },
-                            {
-                                loader: 'resolve-url-loader'
-                            },
-                            {
-                                loader: 'sass-loader',
-                                query: {
-                                    sourceMap: true
-                                }
-                            }
-                        ]
-                    })
-                },
-                {
-                    test: /(\.css$|\.scss$)/,
-                    include: [
-                        Path.resolve(__dirname, './node_modules')
-                    ],
-                    loader: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [
-                            {
-                                loader: 'css-loader'
-                            },
-                            {
-                                loader: 'postcss-loader',
-                                options: {
-                                    sourceMap: true
-                                }
-                            },
-                            { loader: 'resolve-url-loader' },
-                            {
-                                loader: 'sass-loader',
-                                query: {
-                                    sourceMap: true
-                                }
-                            }
-                        ]
-                    })
-                },
+                createStyleSheetLoader(true),
+                createStyleSheetLoader(false),
                 {
                     enforce: 'pre',
                     test: /\.tsx?$/,

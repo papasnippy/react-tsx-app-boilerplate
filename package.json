@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "TS_NODE_PROJECT=\"./scripts/webpack.tsconfig.json\" ./node_modules/.bin/webpack-dev-server --open",
-    "build": "TS_NODE_PROJECT=\"./scripts/webpack.tsconfig.json\" ./node_modules/.bin/webpack",
+    "start": "TS_NODE_PROJECT=\"./webpack.tsconfig.json\" ./node_modules/.bin/webpack-dev-server --open",
+    "build": "TS_NODE_PROJECT=\"./webpack.tsconfig.json\" ./node_modules/.bin/webpack",
     "w": "yarn start",
     "b": "yarn build",
     "bp": "yarn build --mode production"
@@ -62,8 +62,6 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
     "@types/classnames": "^2.2.6",
-    "axios": "^0.18.0",
-    "classnames": "^2.2.6",
     "history": "^4.7.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

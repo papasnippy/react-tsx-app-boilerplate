@@ -1,3 +1,4 @@
+/// <reference path="ambient.d.ts"/>
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Middleware } from 'redux';

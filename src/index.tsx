@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 const Style = require('./index.scss');
-import { createApp } from '~/bootstrap';
+import { createApp } from ':';
 
 if (module.hot) {
     module.hot.accept();
@@ -17,7 +17,11 @@ class App extends React.Component {
     }
 }
 
-createApp().then(({ render }) => {
+createApp({
+    redux: {
+        useReduxThunk: true
+    }
+}).then(({ render }) => {
     render(<App/>);
 });
 

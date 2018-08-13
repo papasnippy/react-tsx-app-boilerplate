@@ -26,20 +26,22 @@ export async function createApp(props: ICreateProps = {}) {
 
     if (props.redux) {
         const { applyMiddleware, compose, createStore } = await import('redux');
-        const { default: ReduxThunk } = await import('redux-thunk');
         const { Provider: _p } = await import('react-redux');
         const { default: Reducer } = await import('~/reducers');
+        const providedMiddlewares = props.redux.middlewares || [];
 
         ReduxProvider = _p;
+        let middlewares: any = null;
 
-        const middlewares = applyMiddleware(
-            ...[
-                props.redux.useReduxThunk
-                    ? ReduxThunk.withExtraArgument(props.redux.thunkExtraArgument || null)
-                    : null,
-                ...props.redux.middlewares
-            ].filter(v => !!v)
-        );
+        if (props.redux.useReduxThunk) {
+            const { default: ReduxThunk } = await import('redux-thunk');
+            middlewares = applyMiddleware(
+                ReduxThunk.withExtraArgument(props.redux.thunkExtraArgument || null),
+                ...providedMiddlewares
+            );
+        } else {
+            middlewares = applyMiddleware(...providedMiddlewares);
+        }
 
         if (process.env.ENV !== 'production') {
             const w = window as any;

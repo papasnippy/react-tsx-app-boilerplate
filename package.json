@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" ./node_modules/.bin/webpack-dev-server --open",
-    "build": "TS_NODE_PROJECT=\"tsconfig.webpack.json\" ./node_modules/.bin/webpack",
+    "start": "TS_NODE_PROJECT=\"./scripts/webpack.tsconfig.json\" ./node_modules/.bin/webpack-dev-server --open",
+    "build": "TS_NODE_PROJECT=\"./scripts/webpack.tsconfig.json\" ./node_modules/.bin/webpack",
     "w": "yarn start",
     "b": "yarn build",
     "bp": "yarn build --mode production"

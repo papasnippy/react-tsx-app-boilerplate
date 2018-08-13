@@ -10,7 +10,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // *******************************************************************
 // todo:
 //  - router (+dev tools)
-//  - reselect (+dev tools)
+//  - reselect
 //  - testing
 // *******************************************************************
 
@@ -27,16 +27,16 @@ module.exports = (env: any, options: any) => {
     const ANALYZE = env.analyze || false;
 
     console.log(`Settings:`);
-    console.log(`- Mode:                ${MODE}`);
+    console.log(`- Mode: ${MODE}`);
 
     if (IS_BUILD) {
-        console.log(`- Build path:          ${BUILD_PATH}`);
+        console.log(`- Build path: ${BUILD_PATH}`);
     } else {
-        console.log(`- Port:                ${PORT}`);
+        console.log(`- Port: ${PORT}`);
     }
 
-    console.log(`- Url loader limit:    ${URL_LOADER_LIMIT} bytes`);
-    console.log(`- Base url:            "${BASE_URL}"`);
+    console.log(`- Url loader limit: ${URL_LOADER_LIMIT} bytes`);
+    console.log(`- Base url: "${BASE_URL}"`);
     console.log(``);
 
     if (IS_BUILD) {
@@ -57,7 +57,8 @@ module.exports = (env: any, options: any) => {
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
             alias: {
-                '~': Path.resolve(__dirname, './src')
+                '~': Path.resolve(__dirname, './src'),
+                ':': Path.resolve(__dirname, './scripts')
             }
         },
         optimization: {

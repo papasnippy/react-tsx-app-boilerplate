@@ -17,9 +17,12 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
     - Dev tools
 - Reselect (optional)
     - Dev tools
+- axios (preinstalled dependency)
+- classnames (preinstalled dependency)
 
 ### Todo:
 - Routing
     - with and without redux
     - history and hash routing
+- GraphQL (optional)
 - Jest Unit testing

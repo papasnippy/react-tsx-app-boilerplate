@@ -61,7 +61,9 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.0.0-rc.1",
+    "@types/classnames": "^2.2.6",
     "axios": "^0.18.0",
+    "classnames": "^2.2.6",
     "history": "^4.7.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",

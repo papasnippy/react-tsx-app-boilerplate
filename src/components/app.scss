@@ -1,15 +1,44 @@
 :local {
-    .app {
-        position: absolute;
+    .topbar {
+        position: fixed;
         left: 0;
         top: 0;
         right: 0;
-        bottom: 0;
-        overflow: auto;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: blue;
         flex-direction: column;
+        flex-shrink: 0;
+        background: #aaa;
+        width: 100%;
+        .title {
+            text-transform: uppercase;
+        }
+        nav {
+            margin-bottom: 1rem;
+            a {
+                margin: 0 0.25rem;
+                text-decoration: none;
+                background: #bbb;
+                padding: 0.25rem 0.5rem;
+                border-radius: 2px;
+                box-shadow: 0 -1px 1px 1px rgba(0, 0, 0, 0.1);
+                &:visited {
+                    color: black;
+                }
+                &.link {
+                    background: #fff;
+                    box-shadow: 0 -1px 1px 1px rgba(0, 0, 0, 0.25);
+                }
+            }
+        }
+    }
+    .content {
+        margin-top: 8rem;
+        display: flex;
+        flex: 1;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
     }
 }

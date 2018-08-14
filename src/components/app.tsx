@@ -1,23 +1,23 @@
 import * as React from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, NavLink } from 'react-router-dom';
 const Style = require('./app.scss');
 
 export class App extends React.Component {
     public render() {
         return (
-            <div className={Style.app}>
-                <div>
-                    <div>
-                        React app bolierplate.
+            <>
+                <div className={Style.topbar}>
+                    <div className={Style.title}>
+                        <h2>React app bolierplate</h2>
                     </div>
-                    <div>
-                        <Link to="/">Home</Link>
-                        <Link to="/page1">Page 1</Link>
-                        <Link to="/page2">Page 2</Link>
-                        <Link to="/page3">Page 3</Link>
-                    </div>
+                    <nav>
+                        <NavLink activeClassName={Style.link} exact to="/">Home</NavLink>
+                        <NavLink activeClassName={Style.link} to="/page1">Page 1</NavLink>
+                        <NavLink activeClassName={Style.link} to="/page2">Page 2</NavLink>
+                        <NavLink activeClassName={Style.link} to="/page3">Page 3</NavLink>
+                    </nav>
                 </div>
-                <div>
+                <div className={Style.content}>
                     <Switch>
                         <Route exact path="/" render={() => (
                             <div>Home</div>
@@ -36,7 +36,7 @@ export class App extends React.Component {
                         )} />
                     </Switch>
                 </div>
-            </div>
+            </>
         );
     }
 }

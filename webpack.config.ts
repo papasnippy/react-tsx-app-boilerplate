@@ -94,7 +94,7 @@ module.exports = (env: any, options: any) => {
         mode: MODE,
         devtool: IS_PROD ? 'none' : 'source-map',
         performance: {
-            hints: false
+            hints: IS_PROD && IS_BUILD
         },
         entry: {
             app: ['@babel/polyfill', './src/index.tsx']

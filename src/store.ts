@@ -1,18 +1,31 @@
 import { Store, applyMiddleware, compose, createStore } from 'redux';
-import Thunk from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
+import { createBrowserHistory } from 'history';
+import { connectRouter, routerMiddleware } from 'connected-react-router';
 import rootReducer from '~/reducers';
+import Type from '~/interfaces';
 
 export default function() {
-    let store: Store = null;
+    let store: Store<Type.State> = null;
+    let history = createBrowserHistory({
+        basename: process.env.BASE_URL
+    });
+
     let middlewares = applyMiddleware(
-        Thunk.withExtraArgument({})
-        // ... other middlewares
+        routerMiddleware(history),
+        ReduxThunk.withExtraArgument({})
     );
+
+    function createReducer() {
+        return connectRouter(history)(rootReducer);
+    }
+
+    let reducer = createReducer();
 
     if (process.env.ENV === 'development') {
         const w = window as any;
         const composeEnhancers = w.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-        store = createStore(rootReducer, composeEnhancers(middlewares));
+        store = createStore(reducer, composeEnhancers(middlewares));
 
         // Reselect dev tools setup
         const ReselectTools = require('reselect-tools');
@@ -20,14 +33,12 @@ export default function() {
 
         if (module.hot) {
             module.hot.accept('~/reducers', () => {
-                const next = require('~/reducers');
-                console.log({ next });
-                store.replaceReducer(next.default);
+                store.replaceReducer(createReducer());
             });
         }
     } else {
-        store = createStore(rootReducer, middlewares);
+        store = createStore(reducer, middlewares);
     }
 
-    return store;
+    return { store, history };
 }

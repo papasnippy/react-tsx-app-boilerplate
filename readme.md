@@ -7,6 +7,7 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
     - Chunk split
     - Tree shaking
     - Dynamic imports
+    - Hot module replacement
 - Babel 7
 - TypeScript 3
 - SCSS
@@ -17,7 +18,9 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
     - Dev tools
 - Reselect
     - Dev tools
+- Routing
+    - react-router-dom
+    - connected-react-router (redux integration)
 
 ### Todo:
-- Routing
 - Jest Unit testing

@@ -1,14 +1,11 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { App } from '~/components';
+import { ConnectedRouter } from 'connected-react-router';
+import { App } from '~/containers';
 import configureStore from '~/store';
 
-// Routing (todo)
-// import { History } from 'history';
-// const BASE_URL = process.env.BASE_URL; // needed for router
-
-const store = configureStore();
+const { store, history } = configureStore();
 
 const render = () => {
     const root = document.getElementsByTagName('app-root')[0];
@@ -19,7 +16,9 @@ const render = () => {
 
     ReactDOM.render((
         <Provider store={store}>
-            <App />
+            <ConnectedRouter history={history}>
+                <App />
+            </ConnectedRouter>
         </Provider>
     ), root);
 };

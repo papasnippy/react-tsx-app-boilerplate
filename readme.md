@@ -1,4 +1,4 @@
-## React bolierplate app
+## React app bolierplate
 
 TypeScript + React app boilerplate with bleeding edge dependencies.
 

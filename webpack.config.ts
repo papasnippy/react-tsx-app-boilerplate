@@ -72,7 +72,7 @@ module.exports = (env: any, options: any) => {
         return {
             test: /(\.css$|\.scss$)/,
             include: [
-                Path.resolve(__dirname, modules ? './src' : './node_modules')
+                Path.resolve(__dirname, modules ? 'src' : 'node_modules')
             ],
             use: (
                 IS_BUILD
@@ -94,7 +94,8 @@ module.exports = (env: any, options: any) => {
         mode: MODE,
         devtool: IS_PROD ? 'none' : 'source-map',
         performance: {
-            hints: IS_PROD && IS_BUILD
+            // uncomment if you need warnings
+            hints: false // IS_PROD && IS_BUILD ? 'warning' : false
         },
         entry: {
             app: ['@babel/polyfill', './src/index.tsx']
@@ -105,9 +106,9 @@ module.exports = (env: any, options: any) => {
             publicPath: IS_BUILD ? '/' + BASE_URL : '/'
         },
         resolve: {
-            extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss'],
+            extensions: ['.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.hbs'],
             alias: {
-                '~': Path.resolve(__dirname, './src')
+                '~': Path.resolve(__dirname, 'src')
             }
         },
         optimization: {
@@ -124,7 +125,10 @@ module.exports = (env: any, options: any) => {
         devServer: {
             hot: true,
             port: PORT,
-            historyApiFallback: true
+            historyApiFallback: true,
+            contentBase: [
+                Path.resolve(__dirname, 'public')
+            ]
         },
         plugins: [
             IS_PROD && new UglifyJsPlugin({
@@ -163,7 +167,10 @@ module.exports = (env: any, options: any) => {
                 allChunks: true
             }),
             new HtmlWebpackPlugin({
-                template: Path.resolve(__dirname, './public/index.html'),
+                template: Path.resolve(__dirname, 'public/index.hbs'),
+                templateParameters: {
+                    'PUBLIC_URL': IS_BUILD && BASE_URL ? '/' + BASE_URL : ''
+                },
                 inject: 'body',
                 baseUrl: '/'
             })
@@ -201,6 +208,10 @@ module.exports = (env: any, options: any) => {
                 {
                     test: /\.json$/,
                     loader: 'json-loader'
+                },
+                {
+                    test: /\.hbs$/,
+                    loader: 'handlebars-loader'
                 },
                 {
                     test: /\.(png|jpg|gif|svg|ttf|eot|woff|woff2)$/,

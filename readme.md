@@ -36,6 +36,17 @@ yarn install
 |`yarn build`|`yarn b`|Build project|
 |`yarn build --mode production`|`yarn bp`|Build project in production mode|
 
+### Env argumens
+Example:
+```bash
+yarn bp --env.urlloaderlimit 4096 --env.baseurl myapp --env.analyze
+```
+|Argument|Default|Description|
+|-|-|-|
+|port|27000|Webpack dev server port|
+|urlloaderlimit|65536|Url loader file size limit|
+|baseurl|s=|Base url aka public url|
+|analyze||Run webpack-bundle-analyzer|
 
 ### Todo:
 - Jest unit testing

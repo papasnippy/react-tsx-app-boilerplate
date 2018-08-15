@@ -22,5 +22,20 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
     - react-router-dom
     - connected-react-router
 
+### Installation
+```bash
+git clone git@github.com:papasnippy/react-tsx-app-bolierplate.git my-app-name
+cd my-app-name
+yarn install
+```
+
+### Scripts
+|Command|Alias|Description|
+|-|-|-|
+|`yarn start`|`yarn w`|Start webpack dev server|
+|`yarn build`|`yarn b`|Build project|
+|`yarn build --mode production`|`yarn bp`|Build project in production mode|
+
+
 ### Todo:
-- Jest Unit testing
+- Jest unit testing

@@ -20,7 +20,7 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
     - Dev tools
 - Routing
     - react-router-dom
-    - connected-react-router (redux integration)
+    - connected-react-router
 
 ### Todo:
 - Jest Unit testing

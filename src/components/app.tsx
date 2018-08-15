@@ -2,7 +2,11 @@ import * as React from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 const Style = require('./app.scss');
 
-export class App extends React.Component {
+export interface IAppProps {
+    pathname: string;
+}
+
+export class App extends React.Component<IAppProps> {
     public render() {
         return (
             <>
@@ -18,6 +22,9 @@ export class App extends React.Component {
                     </nav>
                 </div>
                 <div className={Style.content}>
+                    <div>
+                        Path: {this.props.pathname}
+                    </div>
                     <Switch>
                         <Route exact path="/" render={() => (
                             <div>Home</div>

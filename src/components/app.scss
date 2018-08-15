@@ -7,30 +7,39 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        flex-direction: column;
+        flex-direction: row;
         flex-shrink: 0;
-        background: #aaa;
+        background: var(--theme--accent);
         width: 100%;
         box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2);
-
+        .logoContainer {
+            margin-right: 1rem;
+        }
         .title {
+            text-align: center;
             text-transform: uppercase;
+            text-shadow: 1px 1px 0px rgba(255, 255, 255, 0.2);
         }
         nav {
             margin-bottom: 1rem;
             a {
                 margin: 0 0.25rem;
                 text-decoration: none;
-                background: #bbb;
-                padding: 0.25rem 0.5rem;
-                border-radius: 2px;
+                background: var(--theme--element);
+                padding: 0.25rem 0.5rem 0.4rem;
+                border-radius: 4px;
                 box-shadow: 0 -1px 1px 1px rgba(0, 0, 0, 0.1);
-                &:visited {
-                    color: black;
-                }
+                color: var(--theme--accent-background);
+                border-bottom: 2px solid var(--theme--accent-background);
                 &.link {
-                    background: #fff;
-                    box-shadow: 0 -1px 1px 1px rgba(0, 0, 0, 0.25);
+                    border-bottom-color: var(--theme--complementary);
+                    color: var(--theme--complementary);
+                }
+                &:nth-child(1) {
+                    margin-left: 0;
+                }
+                &:last-child {
+                    margin-right: 0;
                 }
             }
         }
@@ -43,5 +52,21 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
+    }
+
+    @media screen and (max-width: 470px) {
+        .topbar {
+            flex-direction: column;
+            nav {
+                text-align: center;
+            }
+        }
+        .logoContainer {
+            margin-top: 1rem;
+            margin-right: 0;
+        }
+        .content {
+            margin-top: calc(9rem + 80px);
+        }
     }
 }

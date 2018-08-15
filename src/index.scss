@@ -1,8 +1,16 @@
 :root {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    --theme--accent: #4b4d5f;
+    --theme--accent-background: #a8acb5;
+    --theme--element: #30313c;
+    --theme--complementary: #ffb600;
 }
 :global {
     body, html {
         padding: 0;
+    }
+    body {
+        background: var(--theme--accent-background);
     }
 }

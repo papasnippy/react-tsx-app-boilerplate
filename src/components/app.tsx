@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 const Style = require('./app.scss');
 
+import Logo from './logo';
+
 export interface IAppProps {
     pathname: string;
 }
@@ -11,15 +13,20 @@ export class App extends React.Component<IAppProps> {
         return (
             <>
                 <div className={Style.topbar}>
-                    <div className={Style.title}>
-                        <h2>React app bolierplate</h2>
+                    <div className={Style.logoContainer}>
+                        <Logo />
                     </div>
-                    <nav>
-                        <NavLink activeClassName={Style.link} exact to="/">Home</NavLink>
-                        <NavLink activeClassName={Style.link} to="/page1">Page 1</NavLink>
-                        <NavLink activeClassName={Style.link} to="/page2">Page 2</NavLink>
-                        <NavLink activeClassName={Style.link} to="/page3">Page 3</NavLink>
-                    </nav>
+                    <div>
+                        <div className={Style.title}>
+                            <h2>React app bolierplate</h2>
+                        </div>
+                        <nav>
+                            <NavLink activeClassName={Style.link} exact to="/">Home</NavLink>
+                            <NavLink activeClassName={Style.link} to="/page1">Page 1</NavLink>
+                            <NavLink activeClassName={Style.link} to="/page2">Page 2</NavLink>
+                            <NavLink activeClassName={Style.link} to="/page3">Page 3</NavLink>
+                        </nav>
+                    </div>
                 </div>
                 <div className={Style.content}>
                     <div>

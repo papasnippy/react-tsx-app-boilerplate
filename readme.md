@@ -4,7 +4,7 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
 
 ### Features
 - Webpack 4
-    - Chunk split
+    - Chunk splitting
     - Tree shaking
     - Dynamic imports
     - Hot module replacement

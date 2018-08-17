@@ -40,7 +40,7 @@ yarn install
 ### Env argumens
 Example:
 ```bash
-yarn bp --env.urlloaderlimit 4096 --env.baseurl myapp --env.analyze
+yarn b --env.urlloaderlimit 4096 --env.baseurl myapp --env.analyze
 ```
 |Argument|Default|Description|
 |-|-|-|

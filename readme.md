@@ -1,6 +1,4 @@
-## React app boilerplate
-
-TypeScript + React app boilerplate with bleeding edge dependencies.
+## TypeScript React app boilerplate
 
 ### Features
 - Webpack 4

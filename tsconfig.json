@@ -17,7 +17,8 @@
         "jsx": "react",
         "types": [
             "node",
-            "@types/webpack-env"
+            "@types/webpack-env",
+            "@types/jest"
         ],
         "allowJs": true,
         "skipLibCheck": true,

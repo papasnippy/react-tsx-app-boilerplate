@@ -21,6 +21,8 @@ TypeScript + React app boilerplate with bleeding edge dependencies.
 - Routing
     - react-router-dom
     - connected-react-router
+- Jest
+    - ts-jest
 
 ### Installation
 ```bash
@@ -33,8 +35,9 @@ yarn install
 |Command|Alias|Description|
 |-|-|-|
 |`yarn start`|`yarn w`|Start webpack dev server|
-|`yarn build`|`yarn b`|Build project|
-|`yarn build --mode production`|`yarn bp`|Build project in production mode|
+|`yarn build`|`yarn b`|Build project (produciton by default)|
+|`yarn build --mode development`|`yarn bd`|Build project in development mode|
+|`yarn test`|`yarn t`|Run Jest|
 
 ### Env argumens
 Example:
@@ -47,6 +50,3 @@ yarn bp --env.urlloaderlimit 4096 --env.baseurl myapp --env.analyze
 |urlloaderlimit|65536|Url loader file size limit|
 |baseurl||Base url aka public url|
 |analyze||Run webpack-bundle-analyzer|
-
-### Todo:
-- Jest unit testing

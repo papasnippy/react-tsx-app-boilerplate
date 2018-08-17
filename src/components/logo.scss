@@ -20,7 +20,7 @@
             height: 100%;
             width: 40%;
             box-sizing: border-box;
-            border: solid 3px var(--theme--complementary);
+            border: solid 3px var(--theme--accent);
             border-radius: 100%;
             &:nth-child(1) {
                 transform: rotate(0deg);
@@ -35,7 +35,7 @@
         .dot {
             height: 15%;
             width: 15%;
-            background: var(--theme--complementary);
+            background: var(--theme--accent);
             border-radius: 100%;
         }
     }

@@ -9,8 +9,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env: any, options: any) => {
     env = env || {};
-    const IS_PROD = options.mode === 'production';
     const IS_BUILD = !options.$0.includes('webpack-dev-server');
+    const IS_PROD = options.mode ? options.mode === 'production' : IS_BUILD;
     const MODE = IS_PROD ? 'production' : 'development';
     const PORT = env.port || 27000;
     const CHUNK_TYPE = IS_BUILD ? 'chunkhash' : 'hash';
@@ -140,7 +140,7 @@ module.exports = (env: any, options: any) => {
             }),
             IS_BUILD && new CopyWebpackPlugin([
                 {
-                    from: 'public/favicon.ico',
+                    from: 'public/*.ico',
                     to: BUILD_PATH
                 }
             ]),

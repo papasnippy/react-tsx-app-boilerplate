@@ -1,16 +1,19 @@
 :root {
+    /*filter: grayscale();*/
+
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
-    --theme--accent: #4b4d5f;
-    --theme--accent-background: #a8acb5;
-    --theme--element: #30313c;
-    --theme--complementary: #ffb600;
+    --theme--accent: #FFC232;
+    --theme--background: #F7F7FF;
+    --theme--contrast: #090C08;
+    --theme--inactive: #777777;
 }
 :global {
     body, html {
         padding: 0;
+        margin: 0;
     }
     body {
-        background: var(--theme--accent-background);
+        background: var(--theme--background);
     }
 }

@@ -3,5 +3,5 @@ import Type from '~/interfaces';
 
 export default combineReducers<Type.State>({
     router: null,
-    placeholder: () => ({ message: 'remove me with normal reducers' })
+    placeholder: () => 'replace me with normal reducers'
 });

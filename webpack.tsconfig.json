@@ -1,36 +1,7 @@
 {
+    "extends": "./tsconfig.json",
     "compilerOptions": {
-        "baseUrl": ".",
-        "declaration": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
         "module": "commonjs",
-        "moduleResolution": "node",
-        "noEmitOnError": false,
-        "noImplicitAny": true,
-        "sourceMap": true,
-        "target": "es5",
-        "inlineSources": true,
-        "stripInternal": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "jsx": "react",
-        "types": [
-            "node",
-            "@types/webpack-env"
-        ],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "lib": [
-            "es2015",
-            "dom"
-        ],
-        "paths": {
-            "~": ["./src"],
-            "~/*": ["./src/*"]
-        }
-    },
-    "exclude": [],
-    "compileOnSave": false,
-    "buildOnSave": false
+        "target": "es5"
+    }
 }

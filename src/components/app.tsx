@@ -18,7 +18,7 @@ export class App extends React.Component<IAppProps> {
                     </div>
                     <div>
                         <div className={Style.title}>
-                            <h2>React app bolierplate</h2>
+                            <h2>React app boilerplate</h2>
                         </div>
                         <nav>
                             <NavLink activeClassName={Style.link} exact to="/">Home</NavLink>

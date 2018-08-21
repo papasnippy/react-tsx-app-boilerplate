@@ -1,6 +1,6 @@
-const Path = requrie('path');
-const Rimraf = requrie('rimraf');
-const HtmlWebpackPlugin = requrie('html-webpack-plugin');
+const Path = require('path');
+const Rimraf = require('rimraf');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { LoaderOptionsPlugin, DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');

@@ -1,13 +1,13 @@
-import * as Path from 'path';
-import * as Rimraf from 'rimraf';
-import { Configuration, LoaderOptionsPlugin, DefinePlugin, HotModuleReplacementPlugin } from 'webpack';
-import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+const Path = requrie('path');
+const Rimraf = requrie('rimraf');
+const HtmlWebpackPlugin = requrie('html-webpack-plugin');
+const { LoaderOptionsPlugin, DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = (env: any, options: any) => {
+module.exports = (env, options) => {
     env = env || {};
     const IS_BUILD = !options.$0.includes('webpack-dev-server');
     const IS_PROD = options.mode ? options.mode === 'production' : IS_BUILD;
@@ -36,7 +36,7 @@ module.exports = (env: any, options: any) => {
         Rimraf.sync(BUILD_PATH);
     }
 
-    function createStyleSheetLoader(modules: boolean) {
+    function createStyleSheetLoader(modules) {
         let rules = [
             (
                 modules
@@ -222,5 +222,5 @@ module.exports = (env: any, options: any) => {
                 }
             ]
         }
-    } as Configuration;
+    };
 };

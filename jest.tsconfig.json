@@ -1,4 +1,7 @@
-
 {
-    "extends": "./webpack.tsconfig.json"
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5"
+    }
 }

@@ -22,13 +22,6 @@
 - Jest
     - ts-jest
 
-### Installation
-```bash
-git clone git@github.com:papasnippy/react-tsx-app-boilerplate.git my-app-name
-cd my-app-name
-yarn install
-```
-
 ### Scripts
 |Command|Alias|Description|
 |-|-|-|

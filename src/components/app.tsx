@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
-const Style = require('./app.scss');
-
 import Logo from './logo';
+import * as Style from './app.scss';
 
 export interface IAppProps {
     pathname: string;

@@ -1,5 +1,5 @@
 import * as React from 'react';
-const Style = require('./logo.scss');
+import * as Style from './logo.scss';
 
 export class Logo extends React.PureComponent {
     public render() {

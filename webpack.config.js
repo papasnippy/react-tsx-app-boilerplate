@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { LoaderOptionsPlugin, DefinePlugin, HotModuleReplacementPlugin } = require('webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = (env, options) => {
@@ -96,6 +96,18 @@ module.exports = (env, options) => {
             // uncomment if you need warnings
             hints: false // IS_PROD && IS_BUILD ? 'warning' : false
         },
+        optimization: {
+            minimizer: (
+                IS_PROD
+                    ? [
+                        new TerserPlugin({
+                            parallel: true,
+                            sourceMap: true
+                        })
+                    ]
+                    : []
+            )
+        },
         entry: {
             app: ['@babel/polyfill', './src/index.tsx']
         },
@@ -130,10 +142,6 @@ module.exports = (env, options) => {
             ]
         },
         plugins: [
-            IS_PROD && new UglifyJsPlugin({
-                parallel: true,
-                sourceMap: true
-            }),
             ANALYZE && new BundleAnalyzerPlugin({
                 analyzerMode: 'static'
             }),

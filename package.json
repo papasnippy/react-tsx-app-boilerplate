@@ -38,7 +38,7 @@
     "babel-loader": "^8.0.4",
     "caniuse-lite": "^1.0.30000921",
     "copy-webpack-plugin": "^4.6.0",
-    "css-loader": "^1.0.0",
+    "css-loader": "^2.0.1",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "handlebars": "^4.0.12",
     "handlebars-loader": "^1.7.0",

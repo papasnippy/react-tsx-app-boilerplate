@@ -31,7 +31,11 @@
             "~/*": ["./src/*"]
         }
     },
-    "exclude": [],
+    "exclude": [
+        "./*.js",
+        "./coverage",
+        "./build"
+    ],
     "compileOnSave": false,
     "buildOnSave": false
 }

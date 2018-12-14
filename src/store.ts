@@ -1,8 +1,8 @@
-import { Store, applyMiddleware, compose, createStore } from 'redux';
-import ReduxThunk from 'redux-thunk';
 import { createBrowserHistory } from 'history';
-import { connectRouter, routerMiddleware } from 'connected-react-router';
-import rootReducer from '~/reducers';
+import { Store, applyMiddleware, compose, createStore } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import ReduxThunk from 'redux-thunk';
+import createRootReducer from '~/reducers';
 import Type from '~/interfaces';
 
 export default function() {
@@ -17,7 +17,7 @@ export default function() {
     );
 
     function createReducer() {
-        return connectRouter(history)(rootReducer);
+        return createRootReducer(history);
     }
 
     let reducer = createReducer();

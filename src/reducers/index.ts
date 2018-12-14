@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
+import { History } from 'history';
 import Type from '~/interfaces';
 
-export default combineReducers<Type.State>({
-    router: null,
+export default (history: History) => combineReducers<Type.State>({
+    router: connectRouter(history),
     placeholder: () => 'replace me with normal reducers'
 });

@@ -17,7 +17,12 @@ module.exports = {
     },
     globals: {
         'ts-jest': {
-            tsConfigFile: './jest.tsconfig.json'
+            diagnostics: false,
+            extends: "./tsconfig.json",
+            compilerOptions: {
+                module: "commonjs",
+                target: "es5"
+            }
         }
     }
 };

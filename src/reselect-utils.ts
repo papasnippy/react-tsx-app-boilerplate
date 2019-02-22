@@ -1,9 +1,11 @@
 import * as Reselect from 'reselect';
 let _createSelector = Reselect.createSelector;
+let _registerSelectors: Function = null;
 
 if (process.env.ENV === 'development') {
     const ReselectTools = require('reselect-tools');
     _createSelector = ReselectTools.createSelectorWithDependencies;
+    _registerSelectors = ReselectTools.registerSelectors;
 }
 
 /**
@@ -17,7 +19,13 @@ export const createSelector = _createSelector;
  */
 export function register<T = typeof createSelector>(name: string, selector: T): T {
     if (process.env.ENV === 'development') {
-        (selector as any)['selectorName'] = name;
+        if (_registerSelectors) {
+            _registerSelectors({
+                [name]: selector
+            });
+        } else {
+            (selector as any)['selectorName'] = name;
+        }
     }
 
     return selector;

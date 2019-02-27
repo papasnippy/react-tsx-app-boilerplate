@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import Types from '~/interfaces';
 import { App, IAppProps } from '~/components/app';
 import { ExampleSelector } from '~/selectors';
@@ -15,4 +14,7 @@ function mapDispatchToProps(_dispatch: Function) {
     };
 }
 
-export default withRouter<any>(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect<Partial<IAppProps>>(mapStateToProps, mapDispatchToProps)(App);
+
+// import { withRouter } from 'react-router-dom';
+// export default withRouter<any>(connect(mapStateToProps, mapDispatchToProps)(App));

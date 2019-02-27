@@ -1,7 +1,13 @@
 module.exports = {
     presets: [
         ["@babel/preset-env", {
-            modules: false
+            modules: false,
+            targets: {
+                "chrome": "72",
+                "edge": "18",
+                "firefox": "65",
+                "safari": "12"
+            }
         }]
     ],
     plugins: [
